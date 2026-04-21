@@ -1,0 +1,130 @@
+--[[
+    MELOUN GUI v2 - "True Oldschool" Edition
+    Credits: Team Meloun / Head-Dev: MelounczYT
+]]
+
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local DestroyBtn = Instance.new("TextButton")
+local DiscoBtn = Instance.new("TextButton")
+local MsgBtn = Instance.new("TextButton")
+local LaughBtn = Instance.new("TextButton")
+local MusicBtn = Instance.new("TextButton")
+
+-- Setup GUI
+ScreenGui.Parent = game.CoreGui 
+ScreenGui.Name = "MelounDestroyerV2"
+
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainFrame.BorderSizePixel = 2
+MainFrame.Position = UDim2.new(0.4, 0, 0.3, 0)
+MainFrame.Size = UDim2.new(0, 250, 0, 280) 
+MainFrame.Active = true
+MainFrame.Draggable = true 
+
+Title.Parent = MainFrame
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Title.Text = "Server Destroy - Meloun v2"
+Title.TextColor3 = Color3.fromRGB(0, 0, 0)
+Title.Font = Enum.Font.GothamBold
+Title.TextScaled = true
+
+local function StyleButton(btn, pos, text, color)
+    btn.Parent = MainFrame
+    btn.Position = pos
+    btn.Size = UDim2.new(0.8, 0, 0, 35)
+    btn.Text = text
+    btn.BackgroundColor3 = color
+    btn.TextColor3 = Color3.new(1,1,1)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextScaled = true
+end
+
+StyleButton(DestroyBtn, UDim2.new(0.1, 0, 0.15, 0), "Destroy Server", Color3.fromRGB(150, 0, 0))
+StyleButton(DiscoBtn,    UDim2.new(0.1, 0, 0.31, 0), "Disco", Color3.fromRGB(50, 50, 50))
+StyleButton(MsgBtn,      UDim2.new(0.1, 0, 0.47, 0), "Screen Massage", Color3.fromRGB(0, 100, 0))
+StyleButton(LaughBtn,    UDim2.new(0.1, 0, 0.63, 0), "Infinite Laugh", Color3.fromRGB(150, 150, 0))
+StyleButton(MusicBtn,    UDim2.new(0.1, 0, 0.79, 0), "2006 Music", Color3.fromRGB(100, 0, 100))
+
+-- LOGIK MIT ECHTEN ALTEN EFFEKTEN --
+
+-- 1. Echter "666" Effekt (Destroy Server)
+DestroyBtn.MouseButton1Click:Connect(function()
+    for _, v in next, workspace:GetDescendants() do
+        if v:IsA("BasePart") then
+            -- Schwarze Teile + Rote Ränder
+            v.BrickColor = BrickColor.new("Really black")
+            local s = Instance.new("SelectionBox", v)
+            s.Adornee = v
+            s.Color3 = Color3.new(1, 0, 0)
+            
+            -- Schwebender "666" Text (Der alte Effekt!)
+            local bbg = Instance.new("BillboardGui", v)
+            bbg.Size = UDim2.new(2.5, 0, 2.5, 0)
+            local tlb = Instance.new("TextLabel", bbg)
+            tlb.Text = "666 666 666"
+            tlb.Font = "SourceSansBold"
+            tlb.TextColor3 = Color3.new(1, 0, 0)
+            tlb.BackgroundTransparency = 1
+            tlb.Size = UDim2.new(1, 0, 1, 0)
+            
+            -- Feuer
+            local f = Instance.new("Fire", v)
+            f.Color = Color3.new(1, 0, 0)
+        end
+    end
+    -- Lighting Einstellungen
+    game.Lighting.TimeOfDay = 0
+    game.Lighting.Ambient = Color3.new(1, 0, 0)
+    game.Lighting.FogEnd = 200
+    game.Lighting.FogColor = Color3.new(0, 0, 0)
+end)
+
+-- 2. Disco
+DiscoBtn.MouseButton1Click:Connect(function()
+    spawn(function()
+        while true do
+            game.Lighting.Ambient = Color3.new(math.random(), math.random(), math.random())
+            wait(0.25)
+        end
+    end)
+end)
+
+-- 3. Screen Massage (Unendlich)
+MsgBtn.MouseButton1Click:Connect(function()
+    spawn(function()
+        while true do
+            local msg = Instance.new("Message", workspace)
+            msg.Text = "Team meloun destroyed this game ;)"
+            wait(5)
+            msg:Destroy()
+            wait(0.1)
+        end
+    end)
+end)
+
+-- 4. Infinite Laugh
+LaughBtn.MouseButton1Click:Connect(function()
+    spawn(function()
+        while true do
+            local s = Instance.new("Sound", workspace)
+            s.SoundId = "rbxassetid://35935204"
+            s.Volume = 3
+            s:Play()
+            wait(4)
+            s:Destroy()
+        end
+    end)
+end)
+
+-- 5. 2006 Music
+MusicBtn.MouseButton1Click:Connect(function()
+    local s = Instance.new("Sound", workspace)
+    s.SoundId = "rbxassetid://1839246711"
+    s.Volume = 2
+    s.Looped = true
+    s:Play()
+end)
